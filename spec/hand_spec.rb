@@ -50,6 +50,7 @@ describe Blackjack::Hand, 'with a Ten, Jack, and Ace' do
 
   subject do
     hand = Blackjack::Hand.new
+
     hand << Blackjack::Card.new('Hearts', 'Ten')
     hand << Blackjack::Card.new('Hearts', 'Jack')
     hand << Blackjack::Card.new('Hearts', 'Ace')
