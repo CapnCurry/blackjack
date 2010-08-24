@@ -2,62 +2,34 @@ module Blackjack
 
   class Card
 
-    NAMES = {
-      1 => 'Ace',
-      2 => 'Deuce',
-      3 => 'Three',
-      4 => 'Four',
-      5 => 'Five',
-      6 => 'Six',
-      7 => 'Seven',
-      8 => 'Eight',
-      9 => 'Nine',
-      10 => 'Ten',
-      11 => 'Jack',
-      12 => 'Queen',
-      13 => 'King',
-      14 => 'Ace',  #Ace defined twice to allow for both ordinal methods
-      15 => 'Joker'}
-
-    SUITS = {
-      'H' => 'Hearts',
-      'D' => 'Diamonds',
-      'C' => 'Clubs',
-      'S' => 'Spades',
-      1 => 'Hearts',
-      2 => 'Diamonds',
-      3 => 'Clubs',
-      4 => 'Spades'
-    }
-
     VALUES = {
-      'Ace' => [1, 11],
-      'Deuce' => [2],
-      'Three' => [3],
-      'Four' => [4],
-      'Five' => [5],
-      'Six' => [6],
-      'Seven' => [7],
-      'Eight' => [8],
-      'Nine' => [9],
-      'Ten' => [10],
-      'Jack' => [10],
-      'Queen' => [10],
-      'King' => [10]
+      :ace => [1, 11],
+      :deuce => [2],
+      :three => [3],
+      :four => [4],
+      :five => [5],
+      :six => [6],
+      :seven => [7],
+      :eight => [8],
+      :nine => [9],
+      :ten => [10],
+      :jack => [10],
+      :queen => [10],
+      :king => [10]
     }
     
-    attr_accessor :suit, :name
-    def initialize (suit, name)
+    attr_accessor :suit, :face
+    def initialize (suit, face)
       @suit = suit
-      @name = name
+      @face = face
     end
 
     def value
-      @value ||= VALUES[@name]
+      @value ||= VALUES[@face]
     end
 
     def to_s
-      "#{@name} of #{@suit}"
+      "#{@face.capitalize} of #{@suit.capitalize}"
     end
     
   end

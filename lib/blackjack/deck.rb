@@ -50,9 +50,10 @@ module Blackjack
     private
 
     def build!
-      2.upto(14) do |n|
-        1.upto(4) do |s|
-          @cards << Card.new(Card::SUITS[s], Card::NAMES[n])
+      [:ace, :deuce, :three, :four, :five, :six,
+       :seven, :eight, :nine, :ten, :jack, :queen, :king].each do |face|
+        [:hearts, :clubs, :spades, :diamonds].each do |suit|
+          @cards << Card.new(suit, face)
         end
       end
     end
@@ -61,8 +62,16 @@ module Blackjack
 
   class InfiniteDeck < Deck
 
+
+    
     def size
       1/0.0
+    end
+
+    def deal
+      return Card.new([:clubs, :hearts, :diamonds, :spades].shuffle.pop,
+                      [:ace, :deuce, :three, :four, :five, :six, :seven, :eight,
+                       :nine, :ten, :jack, :queen, :king, :ace].shuffle.pop)
     end
     
   end
