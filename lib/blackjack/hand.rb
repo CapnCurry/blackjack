@@ -17,43 +17,34 @@ module Blackjack
       @cards = [card1, card2]
     end
     
-    def ==(other_hand)
-      #true if self.blackjack? and other_hand.blackjack?
-      #true if self.score == other_hand.score
-      #true if self.bust? and other_hand.bust?
+    def <=> (other_hand)
       if self.blackjack? and other_hand.blackjack?
-        true
+        return 0
       elsif self.bust? and other_hand.bust?
-        true
+        return 0
       elsif self.score == other_hand.score and
           self.blackjack? == other_hand.blackjack?
-        true
-      else
-        false
+        return 0
       end
-    end
-    
-      
-    def > (other_hand)
+
       if self.blackjack? and not other_hand.blackjack?
-        true
+        return 1
       elsif self.score > other_hand.score and not self.bust?
-        true
+        return 1
       elsif other_hand.bust? and not self.bust?
-        true
-      else
-        false
+        return  1
+      end
+
+      if other_hand.blackjack? and not self.blackjack?
+        return -1
+      elsif other_hand.score > self.score and not other_hand.bust?
+        return -1
+      elsif self.bust? and not other_hand.bust?
+        return -1
       end
     end
     
-    def <(other_hand)
-      if other_hand.blackjack? and not self.blackjack?
-        true
-      elsif other_hand.score > self.score and not other_hand.bust?
-        true
-      elsif self.bust? and not other_hand.bust?
-      end
-    end
+    
     
     
     def hit(card)

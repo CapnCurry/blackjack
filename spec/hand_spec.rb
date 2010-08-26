@@ -30,9 +30,14 @@ describe Blackjack::Hand, 'with a Ten and Ace' do
     subject.score.should == 21
   end
 
+  it "pushes a blackjack" do
+    other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :king), Blackjack::Card.new(:hearts, :ace))
+    subject == other_hand
+  end
 #  it "does have a scoring choice" do
 #    subject.should be_scoring_choice
 #  end
+  
 
   it "is not bust" do
     subject.should_not be_bust
@@ -48,6 +53,12 @@ describe Blackjack::Hand, 'with a Ten, Jack, and Ace' do
     hand
   end
 
+  it "loses to a blackjack of Ten and Ace" do
+    other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :ace))
+    subject.should < other_hand
+  end
+
+  
   it "is scored as 21" do
     subject.score.should == 21
   end
@@ -61,28 +72,26 @@ describe Blackjack::Hand, 'with a Ten, Jack, and Ace' do
 
 end
 
-describe Blackjack::Hand, 'with a Ten, Jack, and Deuce' do
-
+describe Blackjack::Hand, 'with a Deuce and Ace' do
+  
   subject do
-    hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :jack))
-    hand.hit(Blackjack::Card.new(:hearts, :deuce))
+    hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :deuce), Blackjack::Card.new(:hearts, :ace))
     hand
   end
-
-
+  
  # it "does not have a scoring choice" do
  #   subject.should_not be_scoring_choice
  # end
 
-  it "is scored as 22" do
-    subject.score.should == 22
+  it "is scored as 13" do
+    subject.score.should == 13
   end
 
- 
   it "is bust" do
-    subject.should be_bust
+    subject.should_not be_bust
   end
 
+  
 end
 
 describe Blackjack::Hand, 'with a Ten, Six, and Four' do
@@ -128,7 +137,6 @@ describe Blackjack::Hand, 'A Blackjack of ten and ace' do
   end
 
   it "pushes a hand of Jack and Ace" do
-    
     other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :jack), Blackjack::Card.new(:hearts, :ace))
     subject.should == other_hand
   end
