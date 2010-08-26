@@ -87,10 +87,13 @@ describe Blackjack::Hand, 'with a Deuce and Ace' do
     subject.score.should == 13
   end
 
-  it "is bust" do
+  it "is not bust" do
     subject.should_not be_bust
   end
 
+  it "is soft" do
+    subject.should be_soft
+  end
   
 end
 
@@ -122,6 +125,11 @@ describe Blackjack::Hand, 'with a Ten, Six, and Four' do
     other_hand.hit(Blackjack::Card.new(:hearts, :five))
     subject.should < other_hand
   end
+
+  it "is not soft" do
+    subject.should_not be_soft
+  end
+  
 end
  
 describe Blackjack::Hand, 'A Blackjack of ten and ace' do
@@ -141,8 +149,4 @@ describe Blackjack::Hand, 'A Blackjack of ten and ace' do
     subject.should == other_hand
   end
 end
-
-
-
-
 

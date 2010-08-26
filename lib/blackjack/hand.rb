@@ -38,6 +38,15 @@ module Blackjack
       handscore.detect { |value| value <= 21 } or handscore.last
     end
 
+    def soft?
+      hypothetical_hand = Hand.new
+      hypothetical_hand.cards = @cards
+      hypothetical_hand.hit Card.new(:hearts, :ten)
+      return false if hypothetical_hand.bust?
+      return true
+    end
+    
+    
     # Check hand for bust scenario
     def bust?
       current_score = score
@@ -91,6 +100,5 @@ module Blackjack
     def ace_value?(value)
       value.size == 2
     end
-    
   end
 end
