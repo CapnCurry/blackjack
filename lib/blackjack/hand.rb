@@ -1,11 +1,60 @@
 module Blackjack
   
   class Hand
+    include Comparable
     attr_accessor :cards
+
+    def blackjack?
+      if self.score == 21 and self.cards.size == 2
+        true
+      else
+        false
+      end
+    end
+    
     
     def initialize(card1, card2)
       @cards = [card1, card2]
     end
+    
+    def ==(other_hand)
+      #true if self.blackjack? and other_hand.blackjack?
+      #true if self.score == other_hand.score
+      #true if self.bust? and other_hand.bust?
+      if self.blackjack? and other_hand.blackjack?
+        true
+      elsif self.bust? and other_hand.bust?
+        true
+      elsif self.score == other_hand.score and
+          self.blackjack? == other_hand.blackjack?
+        true
+      else
+        false
+      end
+    end
+    
+      
+    def > (other_hand)
+      if self.blackjack? and not other_hand.blackjack?
+        true
+      elsif self.score > other_hand.score and not self.bust?
+        true
+      elsif other_hand.bust? and not self.bust?
+        true
+      else
+        false
+      end
+    end
+    
+    def <(other_hand)
+      if other_hand.blackjack? and not self.blackjack?
+        true
+      elsif other_hand.score > self.score and not other_hand.bust?
+        true
+      elsif self.bust? and not other_hand.bust?
+      end
+    end
+    
     
     def hit(card)
       @cards << card
