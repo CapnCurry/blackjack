@@ -3,45 +3,56 @@ module Blackjack
   class Hand
     attr_accessor :cards
     
-    def initialize(card1, card2)
-      @cards = [card1, card2]
+    def initialize(*cards)
+      @cards = cards
     end
-    
+
+    # Add a hard to the hand
     def hit(card)
       @cards << card
     end
-    
+
+    # Calculate the best score for the hand
     def score
-      values = @cards.map {|card| card.value} 
-      handscore = [0]
-      values.each do |item|
-        if item[1]
-          handscore.map! { |number| number + item[0]}
-          handscore << handscore.last + (item[1] - item[0])
-        else
-          handscore.map! { |number| number + item[0] }
-        end
-      end
-      handscore = handscore.sort.reverse
-      final_score = handscore.detect do |value|
-        value <= 21
-      end
-      final_score = handscore.last if not final_score
-      
-      return final_score
+      handscore = possible_scores.sort.reverse
+      handscore.detect { |value| value <= 21 } or handscore.last
     end
-    
-    
+
+    # Check hand for bust scenario
     def bust?
-      if self.score > 21
+      current_score = score
+      if current_score > 21
         true
-      elsif self.score > 0
+      elsif current_score > 0
         false
       else
         raise "Invalid Score"
       end
     end
-    
+
+    private
+
+    # Find the current card values
+    def card_values
+      @cards.map(&:value)
+    end
+
+    # Determine all possible scores for this hand
+    def possible_scores
+      card_values.inject([0]) do |memo, item|
+        if ace_value?(item)
+          added_one = memo.map { |score| score + 1 }
+          added_one << (added_one.last + 10)
+        else
+          memo.map { |number| number + item.first }
+        end
+      end
+    end
+
+    # Check a card value to see if it looks like an ace
+    def ace_value?(value)
+      value.size == 2
+    end
     
   end
 end
