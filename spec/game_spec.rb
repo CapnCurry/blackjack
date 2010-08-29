@@ -38,23 +38,23 @@ describe Blackjack::Game, 'A Blackjack game' do
 
   it "should deal a new hand to the first player" do
     subject.begin_round
-    subject.players[0].hands[0].cards.size == 2
+    subject.players[0].hands[0].cards.size.should == 2
   end
 
   it "should deal a hand to the dealer" do
     subject.begin_round
-    subject.dealer.hand.cards.size == 2
+    subject.dealer.hand.cards.size.should == 2
   end
   
 end
 
 describe Blackjack::Dealer, 'A Blackjack dealer with a five and six' do
   
-  subject do
-    dealer = Blackjack::Dealer.new(Blackjack::Game.new)
-    dealer.hand.hit Blackjack::Card.new(:hearts, :five)
-    dealer.hand.hit Blackjack::Card.new(:hearts, :six)
-    dealer
+  subject do 
+    game = Blackjack::Game.new
+    game.dealer.hand.cards << Blackjack::Card.new(:hearts, :five)
+    game.dealer.hand.cards << Blackjack::Card.new(:hearts, :six)
+    game.dealer
   end
 
   it "Should have a hand score of 11" do

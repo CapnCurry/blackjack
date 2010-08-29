@@ -27,10 +27,11 @@ module Blackjack
       end
     end
     
+    ##Old code - refactored 8/26
     # Add a card to the hand
-    def hit(card)
-      @cards << card
-    end
+    #def hit(card)
+    #  @cards << card
+    #end
 
     # Calculate the best score for the hand
     def score
@@ -41,7 +42,7 @@ module Blackjack
     def soft?
       hypothetical_hand = Hand.new
       hypothetical_hand.cards = @cards
-      hypothetical_hand.hit Card.new(:hearts, :ten)
+      hypothetical_hand.cards << Card.new(:hearts, :ten)
       return false if hypothetical_hand.bust?
       return true
     end
