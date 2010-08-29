@@ -73,7 +73,7 @@ describe Blackjack::Hand, 'with a Ten, Jack, and Ace' do
 
   subject do
     hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :jack))
-    hand.hit(Blackjack::Card.new(:hearts, :ace))
+    hand.cards <<(Blackjack::Card.new(:hearts, :ace))
     hand
   end
 
@@ -121,21 +121,21 @@ describe Blackjack::Hand, 'with a Ten, Six, and Four' do
 
   subject do
     hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :six))
-    hand.hit(Blackjack::Card.new(:hearts, :four))
+    hand.cards << (Blackjack::Card.new(:hearts, :four))
     hand
   end
 
   it "beats a hand of Ten, Six, and Three" do
     
     other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :six))
-    other_hand.hit(Blackjack::Card.new(:hearts, :three))
+    other_hand.cards << (Blackjack::Card.new(:hearts, :three))
     subject.should > other_hand
   end
 
   it "pushes a hand of Ten, Five, and Five" do
     
     other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :five))
-    other_hand.hit(Blackjack::Card.new(:hearts, :five))
+    other_hand.cards << (Blackjack::Card.new(:hearts, :five))
     subject.should == other_hand
   end
 
@@ -147,7 +147,7 @@ describe Blackjack::Hand, 'with a Ten, Six, and Four' do
   it "loses to a hand of Ten, Six, and Five" do
     
     other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :six))
-    other_hand.hit(Blackjack::Card.new(:hearts, :five))
+    other_hand.cards << (Blackjack::Card.new(:hearts, :five))
     subject.should < other_hand
   end
 
@@ -165,7 +165,7 @@ describe Blackjack::Hand, 'A Blackjack of ten and ace' do
 
   it "beats a hand of Ten, Six, and Five" do
     other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :six))
-    other_hand.hit(Blackjack::Card.new(:hearts, :five))
+    other_hand.cards << (Blackjack::Card.new(:hearts, :five))
     subject.should > other_hand
   end
 
@@ -183,7 +183,7 @@ describe Blackjack::Hand, 'A Blackjack of ten and king' do
 
   it "loses to a hand of Ten, Six, and Five" do
     other_hand = Blackjack::Hand.new(Blackjack::Card.new(:hearts, :ten), Blackjack::Card.new(:hearts, :six))
-    other_hand.hit(Blackjack::Card.new(:hearts, :five))
+    other_hand.cards << (Blackjack::Card.new(:hearts, :five))
     subject.should < other_hand
   end
 
