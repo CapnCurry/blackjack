@@ -4,6 +4,19 @@ module Blackjack
     include Comparable
     attr_accessor :cards
 
+    def to_s
+      tempstr = ""
+      @cards.each do |card|
+        tempstr = tempstr + card.to_s + ", "
+      end
+      tempstr = tempstr + "for a score of " + self.score.to_s
+    end
+    
+      #result = @cards.inject {|memo, card| memo } # + ", "} #+ card.to_s }
+      #return result #+ "\nFor a score of " + self.score.to_s
+      # end
+    
+    
     def blackjack?
       if self.score == 21 and self.cards.size == 2                             
         true
@@ -42,12 +55,6 @@ module Blackjack
       end
     end
     
-    ##Old code - refactored 8/26
-    # Add a card to the hand
-    #def hit(card)
-    #  @cards << card
-    #end
-
     # Calculate the best score for the hand
     def score
       handscore = possible_scores.sort.reverse
@@ -56,9 +63,9 @@ module Blackjack
 
     def soft?
       hypothetical_hand = Hand.new
-      hypothetical_hand.cards = @cards
-      hypothetical_hand.cards << Card.new(:hearts, :ten)
-      return false if hypothetical_hand.bust? and self.score > 10
+      hypothetical_hand.cards = @cards.clone
+      hypothetical_hand.cards << Card.new(:jackasses, :ten)
+      return false if hypothetical_hand.bust? or self.score <= 10
       return true
     end
     
