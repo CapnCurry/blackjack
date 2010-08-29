@@ -1,6 +1,6 @@
 module Blackjack
 
-  class Game
+  class Game 
     attr_accessor :shoe, :players, :dealer 
     def initialize
       @players = [Player.new(self, 'Able'), Player.new(self, 'Baker'),
@@ -100,7 +100,7 @@ module Blackjack
       dealer_done=false
       until dealer_done do
         self.hit if @hand.score <= 16
-        #self.hit if (@hand.score == 17 and (@hand.soft? == true))           
+        self.hit if (@hand.score == 17 and (@hand.soft? == true))           
         dealer_done = true if (@hand.score == 17 and (@hand.soft? == false))
         dealer_done = true if @hand.score >= 18
       end
