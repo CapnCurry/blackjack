@@ -5,13 +5,28 @@ module Blackjack
     attr_accessor :cards
 
     def blackjack?
-      if self.score == 21 and self.cards.size == 2
+      if self.score == 21 and self.cards.size == 2                             
+        true
+      else
+        false
+      end
+    end
+
+    def splittable?
+      if self.cards.size == 2 and self.cards[0].value == self.cards[1].value
         true
       else
         false
       end
     end
     
+    def doubleable?
+      if self.cards.size == 2 and (self.score == 10 or self.score == 11)
+        true
+      else
+        false
+      end
+    end
     
     def initialize(*cards)
       @cards = cards
@@ -42,7 +57,7 @@ module Blackjack
       hypothetical_hand = Hand.new
       hypothetical_hand.cards = @cards
       hypothetical_hand.hit Card.new(:hearts, :ten)
-      return false if hypothetical_hand.bust?
+      return false if hypothetical_hand.bust? and self.score > 10
       return true
     end
     

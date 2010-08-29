@@ -57,23 +57,30 @@ module Blackjack
         end
       end
     end
-    
   end
 
+  class SpanishDeck < Deck
+    private
+    def build!
+      [:ace, :deuce, :three, :four, :five, :six,
+       :seven, :eight, :nine, :jack, :queen, :king].each do |face|
+        [:hearts, :clubs, :spades, :diamonds].each do |suit|
+          @cards << Card.new(suit, face)
+        end
+      end
+    end
+  end    
+      
   class InfiniteDeck < Deck
 
-
-    
     def size
-      1/0.0
+      1/0.0 #It just goes on forever!
     end
-
+    
     def deal
       return Card.new([:clubs, :hearts, :diamonds, :spades].shuffle.pop,
                       [:ace, :deuce, :three, :four, :five, :six, :seven, :eight,
                        :nine, :ten, :jack, :queen, :king, :ace].shuffle.pop)
     end
-    
   end
-
 end

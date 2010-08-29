@@ -44,3 +44,25 @@ describe Blackjack::InfiniteDeck do
   end
 
 end
+
+describe Blackjack::SpanishDeck do
+
+  subject { Blackjack::SpanishDeck.new }
+  
+  it 'has 48 cards' do
+    subject.size.should == 48
+  end
+
+  describe 'dealing' do
+
+    it 'give a card' do
+      subject.deal.should be_a(Blackjack::Card)
+    end
+
+    it 'change the deck size' do
+      lambda { subject.deal }.should change(subject, :size).by(-1)
+    end
+
+  end
+
+end

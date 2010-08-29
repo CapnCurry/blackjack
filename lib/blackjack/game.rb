@@ -11,21 +11,18 @@ module Blackjack
 
     def begin_round
       @players.each do |player|
-        player.hands[0] = Hand.new
-        player.hands[0].hit @shoe.deal
-        player.hands[0].hit @shoe.deal
+        player.hands[0] = Hand.new(@shoe.deal, @shoe.deal)
       end
-      @dealer.hand.hit @shoe.deal
-      @dealer.hand.hit @shoe.deal
+      2.times { @dealer.hand.hit }
     end
   end
   
   class Player
     attr_accessor :bankroll, :name, :bet_size, :hands
-    def initialize(game)
+    def initialize(game, name = "Player")
       @hands = []
       @bankroll = 0
-      @name = 'Mario'
+      @name = name
       @bet_size = 1
       @game = game
     end
