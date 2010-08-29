@@ -9,7 +9,11 @@ module Blackjack
       @cards.each do |card|
         tempstr = tempstr + card.to_s + ", "
       end
-      tempstr = tempstr + "for a score of " + self.score.to_s
+      if self.soft?
+        tempstr = tempstr + "for a soft " + self.score.to_s
+      else
+        tempstr = tempstr + "for a " + self.score.to_s
+      end
     end
     
       #result = @cards.inject {|memo, card| memo } # + ", "} #+ card.to_s }

@@ -28,15 +28,16 @@ module Blackjack
     def payout
       @players.each do |player|
         player.hands.each do |hand|
-          if hand > dealer.hand
-            player.bankroll += player.bet_size * 2
-            player.bankroll += (player.bet_size * 0.5) if hand.blackjack?
-          elsif hand == dealer.hand
-            player.bankroll += player.bet_size
-          else
-            #Nothing happens. You lose!
+          winnings = 0
+          if (hand.bust? or hand < @dealer.hand)
+            winnings = 0
+          elsif hand > @dealer.hand
+            winnings = player.bet_size * 2
+            winnings += (player.bet_size * 0.5) if hand.blackjack?
+          elsif hand == @dealer.hand 
+            winnings = player.bet_size
           end
-          
+          player.bankroll += winnings
         end
       end
     end
@@ -60,10 +61,24 @@ module Blackjack
     end
 
     def play_hand
-      #Report current score
-      #Offer Stand, Hit, Double, Split options
-      #Instant win on blackjack
-      #Instant lose on bust
+      player_done = false
+      while player_done == false do 
+        puts "\n"
+        puts @hands[0]
+        if @hands[0].score == 21 or @hands[0].bust?
+          player_done = true
+          break
+        else
+          puts "#{self.name}: (H)it or (S)tand?"
+          player_choice = "H"
+          #player_choice = gets
+          if player_choice[0].upcase == 'H' then
+            self.hit
+          elsif player_choice[0].upcase == 'S' then
+            player_done = true
+          end
+        end
+      end
     end
     
 
