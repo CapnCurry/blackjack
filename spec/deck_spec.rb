@@ -22,6 +22,15 @@ describe Blackjack::Deck do
   
 end
 
+describe Blackjack::Deck, 'A double-size deck' do
+  
+  subject { Blackjack::Deck.new(2) }
+  
+  it 'has 104 cards' do
+    subject.size.should == 104
+  end
+  
+end
 
 describe Blackjack::InfiniteDeck do
 
@@ -65,4 +74,13 @@ describe Blackjack::Deck, 'A Spanish Deck' do
 
   end
 
+end
+
+describe Blackjack::Deck, 'A double-sized Spanish Deck' do
+  
+  subject { Blackjack::Deck.new(2, 'S') }
+
+  it 'has 96 cards' do
+    subject.size.should == 96
+  end
 end

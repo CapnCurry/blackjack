@@ -3,17 +3,16 @@ module Blackjack
   class Game 
     attr_accessor :shoe, :players, :dealer 
     def initialize
-      @players = [Player.new(self, 'Able'), Player.new(self, 'Baker'),
-                  Player.new(self, 'Charlie'), Player.new(self, 'Dog')]
+      @players = [Player.new(self, 'Player 1'), Player.new(self, 'Player 2'),
+                  Player.new(self, 'Player 3'), Player.new(self, 'Player 4')]
       @shoe = Deck.new
-      @shoe.shuffle!
       @dealer = Dealer.new(self)
     end
 
-    def begin_round
+    def begin_round #this needs to be broken out differently
       @players.each do |player|
         player.hands[0] = Hand.new(@shoe.deal, @shoe.deal)
-        player.bankroll -= player.bet_size
+        player.bankroll -= player.wager
       end
       @dealer.hand = Hand.new(@shoe.deal, @shoe.deal)
     end
@@ -25,17 +24,17 @@ module Blackjack
       self.payout
     end
     
-    def payout
+    def payout #this is garbage and needs refactoring
       @players.each do |player|
         player.hands.each do |hand|
           winnings = 0
           if (hand.bust? or hand < @dealer.hand)
             winnings = 0
           elsif hand > @dealer.hand
-            winnings = player.bet_size * 2
-            winnings += (player.bet_size * 0.5) if hand.blackjack?
+            winnings = player.wager * 2
+            winnings += (player.wager * 0.5) if hand.blackjack?
           elsif hand == @dealer.hand 
-            winnings = player.bet_size
+            winnings = player.wager
           end
           player.bankroll += winnings
         end
@@ -46,16 +45,16 @@ module Blackjack
   
   class Player
 
-    attr_accessor :bankroll, :name, :bet_size, :hands
-    def initialize(game, name = "Player")
+    attr_accessor :bankroll, :name, :wager, :hands
+    def initialize(game, name = "Player", bankroll = 0)
       @hands = []
       @hands[0] = Hand.new
-      @bankroll = 500
+      @bankroll = bankroll
       @name = name
       @game = game
-      @bet_size = 100
+      @wager = 0
     end
-
+    
     def hit(hand = 0)
       @hands[hand].cards << @game.shoe.deal
     end

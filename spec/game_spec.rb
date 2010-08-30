@@ -76,7 +76,8 @@ describe Blackjack::Game, 'A Blackjack game' do
   end
 
   it "should be able to accept bets" do
-    subject.players[0].bet_size >0
+    subject.players[0].wager = 10
+    subject.players[0].wager.should == 10
   end
 
   it "should deal a new hand to the first player" do

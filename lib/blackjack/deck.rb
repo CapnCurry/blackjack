@@ -12,6 +12,7 @@ module Blackjack
       when 'P' then decks.times { @cards = @cards + build_poker }
       when 'S' then decks.times { @cards = @cards + build_spanish}
       end
+      @cards.shuffle!
     end
 
     def deal

@@ -6,4 +6,5 @@ module Blackjack
   autoload :Player, 'blackjack/game'
   autoload :Game, 'blackjack/game'
   autoload :Dealer, 'blackjack/game'
+  autoload :Ruleset, 'blackjack/rules.rb'
 end
