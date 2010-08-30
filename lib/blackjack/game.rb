@@ -5,7 +5,7 @@ module Blackjack
     def initialize
       @players = [Player.new(self, 'Able'), Player.new(self, 'Baker'),
                   Player.new(self, 'Charlie'), Player.new(self, 'Dog')]
-      @shoe = StandardDeck.new
+      @shoe = Deck.new
       @shoe.shuffle!
       @dealer = Dealer.new(self)
     end

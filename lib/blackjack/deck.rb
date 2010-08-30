@@ -1,24 +1,17 @@
 module Blackjack
 
   class Deck
+    
     class EmptyDeckError < ::ArgumentError; end
 
-    def self.eight
-      of(8)
-    end
-    
-    def self.of(number = 1)
-      cards = []
-      number.times do
-        cards.push(*new.cards)
-      end
-      Deck.new(cards)
-    end
-    
     attr_accessor :cards
-    def initialize(cards = [])
-      @cards = cards
-      build!
+    
+    def initialize(decks = 1, typecode = 'P')
+      @cards = []
+      case typecode
+      when 'P' then decks.times { @cards = @cards + build_poker }
+      when 'S' then decks.times { @cards = @cards + build_spanish}
+      end
     end
 
     def deal
@@ -43,33 +36,30 @@ module Blackjack
     def build!
     end
 
-  end
-  
-  class StandardDeck < Deck
-
-    private
-
-    def build!
-      [:ace, :deuce, :three, :four, :five, :six,
+    def build_poker
+      cardpack = []
+       [:ace, :deuce, :three, :four, :five, :six,
        :seven, :eight, :nine, :ten, :jack, :queen, :king].each do |face|
-        [:hearts, :clubs, :spades, :diamonds].each do |suit|
-          @cards << Card.new(suit, face)
+                [:hearts, :clubs, :spades, :diamonds].each do |suit|
+          cardpack << Card.new(suit, face)
         end
       end
+      return cardpack
     end
-  end
+  
 
-  class SpanishDeck < Deck
-    private
-    def build!
-      [:ace, :deuce, :three, :four, :five, :six,
+    def build_spanish
+      cardpack = []
+       [:ace, :deuce, :three, :four, :five, :six,
        :seven, :eight, :nine, :jack, :queen, :king].each do |face|
         [:hearts, :clubs, :spades, :diamonds].each do |suit|
-          @cards << Card.new(suit, face)
+          cardpack << Card.new(suit, face)
         end
       end
+      return cardpack
     end
-  end    
+  end
+
       
   class InfiniteDeck < Deck
 

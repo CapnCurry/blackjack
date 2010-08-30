@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Blackjack::StandardDeck do
+describe Blackjack::Deck do
 
-  subject { Blackjack::StandardDeck.new }
+  subject { Blackjack::Deck.new }
   
   it 'has 52 cards' do
     subject.size.should == 52
@@ -45,9 +45,9 @@ describe Blackjack::InfiniteDeck do
 
 end
 
-describe Blackjack::SpanishDeck do
+describe Blackjack::Deck, 'A Spanish Deck' do
 
-  subject { Blackjack::SpanishDeck.new }
+  subject { Blackjack::Deck.new(1, 'S') }
   
   it 'has 48 cards' do
     subject.size.should == 48
